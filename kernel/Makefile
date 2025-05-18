@@ -1,18 +1,38 @@
-# Makefile
+# Makefile for simple C++ kernel using i686-linux-gnu-g++
 
-all: os-image
+# Tools
+AS = nasm
+CXX = i686-linux-gnu-g++
+LD = i686-linux-gnu-ld
 
-bootloader.bin: bootloader.asm
-	nasm -f bin bootloader.asm -o bootloader.bin
+# Flags
+CXXFLAGS = -ffreestanding -m32 -nostdlib -fno-exceptions -fno-rtti
+LDFLAGS = -m elf_i386 -T linker.ld
 
-kernel.o: kernel.cpp
-	i686-elf-g++ -ffreestanding -m32 -c kernel.cpp -o kernel.o
+# Files
+KERNEL = kernel.bin
+ISO = os-image
+BOOTLOADER = bootloader.bin
+KERNEL_OBJ = kernel.o
 
-kernel.bin: kernel.o linker.ld
-	i686-elf-ld -T linker.ld -o kernel.bin -m elf_i386 kernel.o
+# Targets
+all: $(ISO)
 
-os-image: bootloader.bin kernel.bin
-	cat bootloader.bin kernel.bin > os-image
+$(BOOTLOADER): bootloader.asm
+	$(AS) -f bin $< -o $@
 
-run: os-image
-	qemu-system-i386 -fda os-image
+$(KERNEL_OBJ): kernel.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(KERNEL): $(KERNEL_OBJ)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+$(ISO): $(BOOTLOADER) $(KERNEL)
+	cat $(BOOTLOADER) $(KERNEL) > $@
+
+run: $(ISO)
+	qemu-system-i386 -fda $(ISO)
+
+clean:
+	rm -f $(KERNEL_OBJ) $(KERNEL) $(BOOTLOADER) $(ISO)
+
