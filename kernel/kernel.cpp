@@ -8,7 +8,7 @@ const unsigned int multiboot_header[] = {
 };
 
 extern "C" void kernel_main() {
-    const char* msg = "Hello from your C++ kernel!";
+    const char* msg = "Welcome to your C++ kernel!";
     char* video = (char*)0xb8000;
 
     for (int i = 0; msg[i]; ++i) {
