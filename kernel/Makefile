@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# Makefile for simple C++ kernel using i686-linux-gnu-g++
+
+>>>>>>> parent of 9ca7420... worked init version
 # Tools
 AS = nasm
 CXX = i686-linux-gnu-g++
@@ -9,6 +14,7 @@ LDFLAGS = -m elf_i386 -T linker.ld
 
 # Files
 KERNEL = kernel.bin
+<<<<<<< HEAD
 ISO = os.iso
 BOOTLOADER = bootloader.bin
 OBJS = kernel.o keyboard.o idt.o
@@ -36,6 +42,26 @@ $(ISO): $(KERNEL)
 	cp $(KERNEL) isodir/boot/kernel.bin
 	cp grub/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o $(ISO) isodir
+=======
+ISO = os-image
+BOOTLOADER = bootloader.bin
+KERNEL_OBJ = kernel.o
+
+# Targets
+all: $(ISO)
+
+$(BOOTLOADER): bootloader.asm
+	$(AS) -f bin $< -o $@
+
+$(KERNEL_OBJ): kernel.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(KERNEL): $(KERNEL_OBJ)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+$(ISO): $(BOOTLOADER) $(KERNEL)
+	cat $(BOOTLOADER) $(KERNEL) > $@
+>>>>>>> parent of 9ca7420... worked init version
 
 # Optional: If you're using a flat bootloader
 $(BOOTLOADER): bootloader.asm
@@ -51,4 +77,9 @@ run: $(ISO)
 
 # Clean up build files
 clean:
+<<<<<<< HEAD
 	rm -rf *.o *.bin *.iso isodir os-image $(BOOTLOADER)
+=======
+	rm -f $(KERNEL_OBJ) $(KERNEL) $(BOOTLOADER) $(ISO)
+
+>>>>>>> parent of 9ca7420... worked init version
