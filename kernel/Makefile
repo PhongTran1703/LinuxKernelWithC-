@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 # Cross compiler tools
 CXX = i686-linux-gnu-g++
 LD = i686-linux-gnu-ld
 NASM = nasm
+=======
+# Makefile for simple C++ kernel using i686-linux-gnu-g++
+
+# Tools
+AS = nasm
+CXX = i686-linux-gnu-g++
+LD = i686-linux-gnu-ld
+>>>>>>> parent of 9ca7420... worked init version
 
 # Flags
 CXXFLAGS = -ffreestanding -m32 -nostdlib -fno-exceptions -fno-rtti
-LDFLAGS = -T linker.ld -m elf_i386
+LDFLAGS = -m elf_i386 -T linker.ld
 
+<<<<<<< HEAD
 # File names
 ISO = os.iso
 KERNEL = kernel.bin
@@ -35,11 +45,38 @@ $(ISO): $(KERNEL)
 	cp $(KERNEL) isodir/boot/kernel.bin
 	cp grub/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o $(ISO) isodir
+=======
+# Files
+KERNEL = kernel.bin
+ISO = os-image
+BOOTLOADER = bootloader.bin
+KERNEL_OBJ = kernel.o
+
+# Targets
+all: $(ISO)
+
+$(BOOTLOADER): bootloader.asm
+	$(AS) -f bin $< -o $@
+
+$(KERNEL_OBJ): kernel.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(KERNEL): $(KERNEL_OBJ)
+	$(LD) $(LDFLAGS) -o $@ $^
+
+$(ISO): $(BOOTLOADER) $(KERNEL)
+	cat $(BOOTLOADER) $(KERNEL) > $@
+>>>>>>> parent of 9ca7420... worked init version
 
 # Run kernel in QEMU
 run: $(ISO)
-	qemu-system-i386 -cdrom $(ISO)
+	qemu-system-i386 -fda $(ISO)
 
 # Clean up build files
 clean:
+<<<<<<< HEAD
 	rm -rf *.o *.bin *.iso isodir
+=======
+	rm -f $(KERNEL_OBJ) $(KERNEL) $(BOOTLOADER) $(ISO)
+
+>>>>>>> parent of 9ca7420... worked init version
