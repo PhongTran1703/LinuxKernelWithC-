@@ -1,0 +1,35 @@
+[33mcommit 84edeba290f17fa27ea7d6070e3ba41cf22b0dd7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Phong Tran <phong.tran@tuni.fi>
+Date:   Mon May 19 22:34:08 2025 +0300
+
+    modify grub
+
+[33mcommit dc05ad11bf47044ab4ecf5aef85a6184b08f46a1[m
+Author: Phong Tran <phong.tran@tuni.fi>
+Date:   Sun May 18 19:28:03 2025 +0300
+
+    changed
+
+[33mcommit 9ca7420408c199070cc5ae10050052cc36bbdcda[m
+Author: Phong Tran <phong.tran@tuni.fi>
+Date:   Sun May 18 19:27:01 2025 +0300
+
+    worked init version
+
+[33mcommit 4e5bcaadedc128851ae1df1ba7b59494f17ce342[m
+Author: Phong Tran <phong.tran@tuni.fi>
+Date:   Sun May 18 19:01:35 2025 +0300
+
+    Makefile changes
+
+[33mcommit 118a5ef3c2d5974e7292fc6da268cf54bc2b44b2[m
+Author: Phong Tran <phong.tran@tuni.fi>
+Date:   Sun May 18 18:53:05 2025 +0300
+
+    init commit
+
+[33mcommit 790d4566695346c7dde3b45800865f22ee382a6a[m
+Author: PhongTran1703 <160323172+PhongTran1703@users.noreply.github.com>
+Date:   Sun May 18 18:06:19 2025 +0300
+
+    Initial commit
